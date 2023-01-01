@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+python3-saml = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+aiohttp = "*"
+python-multipart = "*"
+
+[dev-packages]
+mypy = "*"
+black = "*"
+
+[requires]
+python_version = "3.11"
