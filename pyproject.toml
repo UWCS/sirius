@@ -1,0 +1,27 @@
+[tool.black]
+line-length = 88
+target_version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | env
+    | alembic
+    | _build
+    | buck-out
+    | build
+    | dist
+    | .venv
+    | venv
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+skip_glob = ["alembic/*"]

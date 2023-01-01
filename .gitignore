@@ -170,3 +170,4 @@ cython_debug/
 
 **/saml/*settings.json
 **/saml/certs
+config.yaml

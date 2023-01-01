@@ -9,6 +9,9 @@ python3-saml = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 aiohttp = "*"
 python-multipart = "*"
+sqlalchemy = "*"
+databases = {extras = ["asyncpg"], version = "*"}
+alembic = "*"
 
 [dev-packages]
 mypy = "*"
