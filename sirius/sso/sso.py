@@ -17,7 +17,7 @@ class XMLResponse(Response):
     media_type = "application/xml"
 
 
-def init_saml_auth(request: dict) -> OneLogin_Saml2_Auth:
+def init_saml_auth(request: dict[str, Any]) -> OneLogin_Saml2_Auth:
     auth = OneLogin_Saml2_Auth(request, custom_base_path=saml_path)
     return auth
 
