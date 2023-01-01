@@ -13,6 +13,7 @@ python-multipart = "*"
 [dev-packages]
 mypy = "*"
 black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.11"

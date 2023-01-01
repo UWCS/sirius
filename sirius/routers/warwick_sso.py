@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Request
-from fastapi.responses import RedirectResponse, Response
 from pathlib import Path
 
-from ..sso import sso
+from fastapi import APIRouter, Request
+from fastapi.responses import RedirectResponse, Response
 
+from ..sso import sso
 
 saml_path = str(Path(__file__).parent / "saml")
 

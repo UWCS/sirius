@@ -1,9 +1,9 @@
-from fastapi import Request, HTTPException, status
-from fastapi.responses import Response
 from pathlib import Path
 from typing import Any
-from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
+from fastapi import HTTPException, Request, status
+from fastapi.responses import Response
+from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
 saml_path = str(Path(__file__).parent / "saml")
 
