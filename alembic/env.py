@@ -71,9 +71,12 @@ async def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    # check type to please mypy, the assertion shouldn't fail but if it does something has gone wrong.
+    config_ini_section = config.get_section(config.config_ini_section)
+    assert config_ini_section is not None, "failed to load config"
     connectable = AsyncEngine(
         engine_from_config(
-            config.get_section(config.config_ini_section),
+            config_ini_section,
             prefix="sqlalchemy.",
             poolclass=pool.NullPool,
             future=True,

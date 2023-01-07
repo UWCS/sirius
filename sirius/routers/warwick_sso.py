@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import APIRouter, Request
 from fastapi.responses import RedirectResponse, Response
 
+from ..models.User import *
 from ..sso import sso
 
 saml_path = str(Path(__file__).parent / "saml")
@@ -70,7 +71,7 @@ async def warwick_sso_callback(request: Request):
             return Response("User not authenticated", status_code=401)
         else:
             data = auth.get_attributes()
-            return data
+            return create_user_from_warwick_sso(data)
     else:
         raise sso.SAMLException(
             {"last_error": auth.get_last_error_reason(), "errors": errors}

@@ -12,6 +12,7 @@ python-multipart = "*"
 sqlalchemy = "*"
 databases = {extras = ["asyncpg"], version = "*"}
 alembic = "*"
+passlib = {extras = ["argon"], version = "*"}
 
 [dev-packages]
 mypy = "*"

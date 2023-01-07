@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 
 from .database import db
-from .routers import warwick_sso
+from .routers import auth, warwick_sso
 
 app = FastAPI()
 app.include_router(warwick_sso.router)
+app.include_router(auth.router)
 
 
 @app.on_event("startup")
