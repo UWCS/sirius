@@ -28,7 +28,7 @@ router = APIRouter(
 
 
 @router.get("/", response_class=sso.XMLResponse)
-async def warwick_sso_metadata(request: Request) -> sso.XMLResponse:
+async def warwick_sso_metadata(request: Request):
     req = await sso.prepare_request(request)
     auth = sso.init_saml_auth(req)
     settings = auth.get_settings()
