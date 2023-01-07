@@ -71,7 +71,7 @@ async def warwick_sso_callback(request: Request):
             return Response("User not authenticated", status_code=401)
         else:
             data = auth.get_attributes()
-            return create_user_from_warwick_sso(data)
+            return await create_user_from_warwick_sso(data)
     else:
         raise sso.SAMLException(
             {"last_error": auth.get_last_error_reason(), "errors": errors}
