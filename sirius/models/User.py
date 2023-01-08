@@ -1,7 +1,6 @@
 import secrets
 import string
 from datetime import datetime
-from typing import Any
 
 from passlib.hash import argon2
 from pydantic import BaseModel
@@ -58,7 +57,12 @@ async def create_user_from_warwick_sso(data: dict[str, list[str]]):
     user = await get_user(username)
     if user is not None:
         query = users.update().where(users.c.username == username)
-        query = query.values(email=email, first_name=first_name, last_name=last_name, last_login=func.now())
+        query = query.values(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            last_login=func.now(),
+        )
     else:
         password = "".join(
             secrets.choice(string.ascii_letters + string.digits) for i in range(32)
@@ -73,3 +77,12 @@ async def create_user_from_warwick_sso(data: dict[str, list[str]]):
         )
     await db.execute(query)
     return await get_user(username)
+
+
+async def authenticate_user(username: str, password: str):
+    user = await get_user(username)
+    if user is None:
+        return None
+    if not argon2.verify(password, user.password):
+        return None
+    return user

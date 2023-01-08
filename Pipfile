@@ -13,6 +13,8 @@ sqlalchemy = "*"
 databases = {extras = ["asyncpg"], version = "*"}
 alembic = "*"
 passlib = {extras = ["argon2"], version = "*"}
+python-jose = {extras = ["cryptography"], version = "*"}
+itsdangerous = "*"
 
 [dev-packages]
 mypy = "*"
