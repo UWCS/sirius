@@ -10,7 +10,7 @@ saml_path = str(Path(__file__).parent / "saml")
 
 
 router = APIRouter(
-    prefix="/sso/warwick",
+    prefix="/realms/uwcs/broker/warwick_sso",
     responses={
         503: {
             "description": "Service provider error",
@@ -27,7 +27,7 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_class=sso.XMLResponse)
+@router.get("/descriptor", response_class=sso.XMLResponse)
 async def warwick_sso_metadata(request: Request):
     req = await sso.prepare_request(request)
     auth = sso.init_saml_auth(req)
@@ -60,7 +60,7 @@ async def warwick_sso_login(request: Request):
         )
 
 
-@router.post("/acs")
+@router.post("/endpoint")
 async def warwick_sso_callback(request: Request):
     req = await sso.prepare_request(request)
     auth = sso.init_saml_auth(req)
@@ -71,7 +71,8 @@ async def warwick_sso_callback(request: Request):
             return Response("User not authenticated", status_code=401)
         else:
             data = auth.get_attributes()
-            return await create_user_from_warwick_sso(data)
+            return data
+            # return await create_user_from_warwick_sso(data)
     else:
         raise sso.SAMLException(
             {"last_error": auth.get_last_error_reason(), "errors": errors}
