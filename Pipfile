@@ -15,6 +15,7 @@ alembic = "*"
 passlib = {extras = ["argon2"], version = "*"}
 python-jose = {extras = ["cryptography"], version = "*"}
 itsdangerous = "*"
+ldap3 = "*"
 
 [dev-packages]
 mypy = "*"

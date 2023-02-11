@@ -7,7 +7,6 @@ from jose import JWTError, jwt
 
 from config import CONFIG
 
-from ..database import db
 from ..models.Token import Token
 from ..models.User import User, authenticate_user, get_user, users
 

@@ -3,7 +3,6 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from config import CONFIG
 
-from .database import db
 from .routers import auth, warwick_sso
 
 app = FastAPI()
