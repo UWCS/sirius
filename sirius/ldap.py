@@ -2,7 +2,7 @@ import ldap3
 import hashlib
 import os
 import base64
-from settings import Settings
+from .settings import Settings
 
 
 def connect() -> ldap3.Connection:

@@ -5,7 +5,7 @@ from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
-from settings import Settings
+from ..settings import Settings
 
 from ..models.Token import Token
 from ..models.User import User, authenticate_user, get_user

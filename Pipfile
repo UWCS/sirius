@@ -9,14 +9,12 @@ python3-saml = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 aiohttp = "*"
 python-multipart = "*"
-sqlalchemy = "*"
-databases = {extras = ["asyncpg"], version = "*"}
-alembic = "*"
 passlib = {extras = ["argon2"], version = "*"}
 python-jose = {extras = ["cryptography"], version = "*"}
 itsdangerous = "*"
 ldap3 = "*"
 python-dotenv = "*"
+anyio = "*"
 
 [dev-packages]
 mypy = "*"
