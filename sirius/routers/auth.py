@@ -5,10 +5,10 @@ from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
-from config import CONFIG
+from settings import Settings
 
 from ..models.Token import Token
-from ..models.User import User, authenticate_user, get_user, users
+from ..models.User import User, authenticate_user, get_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -21,10 +21,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    s = Settings()  # type: ignore
     try:
-        payload = jwt.decode(
-            token, CONFIG.JWT_SECRET_KEY, algorithms=[CONFIG.JWT_ALGORITHM]
-        )
+        payload = jwt.decode(token, s.jwt_secret_key, algorithms=[s.jwt_algorithm])
         username: str = payload.get("sub", None)
         if username is None:
             raise credentials_exception
@@ -38,14 +37,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
+    s = Settings()  # type: ignore
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=CONFIG.JWT_EXPIRE_MINUTES)
+        expire = datetime.utcnow() + timedelta(minutes=s.jwt_expire_mins)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(
-        to_encode, CONFIG.JWT_SECRET_KEY, algorithm=CONFIG.JWT_ALGORITHM
-    )
+    encoded_jwt = jwt.encode(to_encode, s.jwt_secret_key, algorithm=s.jwt_algorithm)
     return encoded_jwt
 
 
@@ -58,7 +56,7 @@ async def login(username: str = Form(), password: str = Form()):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=CONFIG.JWT_EXPIRE_MINUTES)
+    access_token_expires = timedelta(minutes=Settings().JWT_EXPIRE_MINUTES)  # type: ignore
     access_token = create_access_token({"sub": user.username}, access_token_expires)
     return {"access_token": access_token, "token_type": "bearer"}
 

@@ -2,23 +2,20 @@ import ldap3
 import hashlib
 import os
 import base64
-
-LDAP_URL = ""
-LDAP_PORT = 12
-LDAP_USER = ""
-LDAP_PASSWORD = ""
+from settings import Settings
 
 
 def connect() -> ldap3.Connection:
     """
     Create a connection to the LDAP server
     """
-    ldap_server = ldap3.Server(LDAP_URL, LDAP_PORT)
+    s = Settings()  # type: ignore
+    ldap_server = ldap3.Server(s.ldap_url)
 
     conn = ldap3.Connection(
         ldap_server,
-        user=LDAP_USER,
-        password=LDAP_PASSWORD,
+        user=s.ldap_user,
+        password=s.ldap_password,
         client_strategy=ldap3.SYNC,
         authentication=ldap3.SIMPLE,
     )
